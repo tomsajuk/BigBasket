@@ -1,0 +1,2 @@
+Run mongod on terminal. 
+run node ./bin/www
