@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BigBasket</string>
+    <string name="default_txt_result">Focus the camera on the Barcode!</string>
 </resources>
