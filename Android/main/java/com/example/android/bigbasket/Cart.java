@@ -8,8 +8,10 @@ import android.text.format.Formatter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -29,38 +31,50 @@ public class Cart extends AppCompatActivity {
     String TAG = "In CartActivity";
     static String code;
     static int t = 0;
+    static Button mPay;
+    static TextView mAmount;
+    static float payAmount = 0;
+    String suggest;
    // public String prod_name;
-    final ArrayList<String> items = new ArrayList<String>();
+    final static ArrayList<Product> items = new ArrayList<Product>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
+        mPay = (Button)findViewById(R.id.checkOut);
+        mAmount = (TextView)findViewById(R.id.payamount);
+        Toast.makeText(this,"To add product to cart, Click on the Camera",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Toast.makeText(this,"To add product to cart, Click on the Camera",Toast.LENGTH_SHORT).show();
-        //updateUI();
+        updateUI();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        //updateUI();
         if(t == 1){
-            //Toast.makeText(this, code + " selected", Toast.LENGTH_SHORT).show();
             t = 0;
             searchProduct(code);
-            //updateUI();
         }
         if(t == 2){
-            //Toast.makeText(this, "Nothing selected!!!", Toast.LENGTH_SHORT).show();
             t = 0;
         }
     }
 
+    public void payBill(View v){
+        Toast.makeText(this,"Thank You for Shopping with us",Toast.LENGTH_SHORT).show();
+        payAmount = 0;
+        int j = items.size();
+        for(int i=0; i<j; i++)
+            items.remove(0);
+        finish();
+    }
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.cart_menu, menu);
         return super.onCreateOptionsMenu(menu);
@@ -89,10 +103,31 @@ public class Cart extends AppCompatActivity {
     }
 
     public void updateUI(){
-        Log.e("Cart","in update cart.java "+items);
-        ListView ls = (ListView)findViewById(R.id.listcart) ;
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,items);
+        //items.add(new Product('A',"Shailendra PAtel Anuj Singh","100","123","xyz"));
+        ListView ls = (ListView)findViewById(R.id.listView) ;
+        CustomProductAdapter adapter = new CustomProductAdapter(this,items);
         ls.setAdapter(adapter);
+        generateBill();
+    }
+
+    public static void generateBill(){
+        Product p;
+        payAmount = 0;
+        for(int i=0; i<items.size(); i++)
+        {
+            p = items.get(i);
+            payAmount += Float.valueOf(p.getAmount());
+        }
+        if(payAmount > 0){
+            mAmount.setVisibility(View.VISIBLE);
+            mPay.setVisibility(View.VISIBLE);
+            mAmount.setText(String.valueOf("Pay : ₹"+payAmount));
+        }
+        else
+        {
+            mAmount.setVisibility(View.INVISIBLE);
+            mPay.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void searchProduct(String code){
@@ -114,23 +149,19 @@ public class Cart extends AppCompatActivity {
                     public void onResponse(JSONArray response) {
                         // the response is already constructed as a JSONObject!
                         try {
-                            //cTextView.setText("Response = " + response);
-                            //"Unit Price" t get unit price
-                            //"Product Name" to get product name
-                            //"Barcode" for barcode no
-                            //"Category" to know the category
                             JSONObject res = response.getJSONObject(0);
 
                             String unitPrice = res.getString("Unit Price");
                             String prod_name = res.getString("Product Name");
-                            int barcode = res.getInt("Barcode");
+                            String barcode = res.getString("Barcode");
                             String category = res.getString("Category");
+                            suggest = res.getString("Suggest");
 
-                            items.add(prod_name);
-                            Log.e("Cart","in Serch product  "+items);
+                            items.add(new Product(prod_name.charAt(0),prod_name,unitPrice,barcode,category));
+                            Toast.makeText(getApplicationContext(),"People also buy "+suggest,Toast.LENGTH_SHORT).show();
+
+                            Log.e("Cart","in Serch product  "+items.get(0).getProdName());
                             updateUI();
-                            /*cTextView.setText("Product Name : " + product_name + "\nUnit Price : " + unitPrice+
-                                    "\nBarcode : " + barcode + "\nCategory : " + category);*/
                         } catch (JSONException e) {
                             e.printStackTrace();
                            // cTextView.setText(e.getMessage());

@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,9 +30,16 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void offers(View v){
+        Toast.makeText(this,"Sorry, no offers are available.",Toast.LENGTH_SHORT).show();
+    }
     public void callCustomerCare(View view){
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse("tel:8007821185"));
+        startActivity(intent);
+    }
+    public void callHelp(View v){
+        Intent intent = new Intent(this,Help.class);
         startActivity(intent);
     }
 }

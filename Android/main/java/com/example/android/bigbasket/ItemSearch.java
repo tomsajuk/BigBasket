@@ -84,14 +84,20 @@ public class ItemSearch extends AppCompatActivity implements Response.Listener,
                                     //"Rack No" to get the rack no
                                     //"Shelf No" to get shelf no
                                     //"Product Name" to get the name of product
-                                    String unitPrice = res.getString("Unit Price");
-                                    String rack_no = res.getString("Rack No");
-                                    String shelf_no = res.getString("Shelf No");
-                                    String product_name = res.getString("Product Name");
+                                    if(res.length()==0){
+                                        nTextView.setText("Sorry, this product is not available.");
+                                    }
+                                    else{
+                                        String unitPrice = res.getString("Unit Price");
+                                        String rack_no = res.getString("Rack No");
+                                        String shelf_no = res.getString("Shelf No");
+                                        String product_name = res.getString("Product Name");
 
-                                    //Log.i("Unit Price : ",unitPrice);
-                                    nTextView.setText("Product Name : " + product_name + "\nUnit Price : " + unitPrice +
-                                            "\nRack No: " + rack_no + "\nShelf No : " + shelf_no);
+                                        //Log.i("Unit Price : ",unitPrice);
+                                        nTextView.setText("Product Name : " + product_name + "\nUnit Price : " + unitPrice +
+                                                "\nRack No: " + rack_no + "\nShelf No : " + shelf_no);
+                                    }
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                     nTextView.setText(e.getMessage());
