@@ -1,0 +1,32 @@
+#Installing Basic packages
+
+  install.packages("arules")
+    require(arules)
+    
+
+#From a data set
+#Convert into a Sparse Data Set
+
+        Groc <- read.transactions("groceries.csv", sep=',')             
+        summary(Groc)     #get a proper summary of the data set
+        inspect(Groc)     #inspect the entire data set
+
+#Now we must Check the support:
+        itemFrequency(Groc[,1])     #returns the itemFrequency of the first item.
+ #To from a frequency plot use the commands given below.
+                                             
+    itemFrequencyPlot(Groc , support = 0.10)  #returns all items with support greater than or equal to 10%
+      #Alternately we can use { itemFrequencyPlot(Groc , topN = 5) } to form a frequency plot of the top 5 most frequent items
+
+#now time to bring in the confidence
+   #basic command { m1 <- apriori(Groc) }
+   
+   
+   m1 <- apriori(Groc, parameter =list(support = 0.007, confidence = 0.25 ,minlen =2) ) #makes a list of all rules with the given parameters
+   m1                  #Returns the number of rules formed
+   summary(m1)         #Returns the summary of all the rules formed      
+   
+   #now to inspect the rules.......basic command { inspect(m1)  ,  inspect(m1[1:2])   }
+       
+   inspect(sort(m1, by = "lift")[1:4])
+  
