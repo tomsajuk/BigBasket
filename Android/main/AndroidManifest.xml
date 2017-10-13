@@ -22,13 +22,28 @@
         </activity>
         <activity
             android:name=".ShoppingList"
-            android:label="ShoppingList" />
+            android:label="ShoppingList"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVIY"
+                android:value="MainActivity" />
+        </activity>
         <activity
             android:name=".Cart"
-            android:label="Cart" />
+            android:label="Cart"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVIY"
+                android:value="MainActivity" />
+        </activity>
         <activity
             android:name=".Scanner"
-            android:label="Scanner" />
+            android:label="Scanner"
+            android:parentActivityName=".Cart">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVIY"
+                android:value="MainActivity" />
+        </activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -37,7 +52,21 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
 
-        <activity android:name=".ItemSearch"></activity>
+        <activity
+            android:name=".ItemSearch"
+            android:label="Search"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVIY"
+                android:value="MainActivity" />
+        </activity>
+        <activity android:name=".Help"
+            android:label="Help"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
     </application>
 
 </manifest>

@@ -132,11 +132,12 @@
                     android:id="@+id/connect"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/wifi" />
+                    android:src="@drawable/connect"
+                    android:onClick="offers"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Connect"
+                    android:text="Offers"
                     android:textSize="24dp"
                     android:textColor="#ffffff"
                     android:textStyle="bold"/>
@@ -199,7 +200,8 @@
                     android:id="@+id/help"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/help" />
+                    android:src="@drawable/help"
+                    android:onClick="callHelp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

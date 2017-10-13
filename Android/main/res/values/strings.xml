@@ -1,4 +1,21 @@
 <resources>
-    <string name="app_name">BigBasket</string>
     <string name="default_txt_result">Focus the camera on the Barcode!</string>
+    <string name="app_name">BigBasket</string>
+    <string name="cart">Cart</string>
+    <string name="cartHelp">
+        1. To start go to Cart\n
+        2. Click on the cam icon to add items to the shopping cart\n
+        3. After adding all the items click on PayNow
+    </string>
+    <string name="search">Search</string>
+    <string name="searchHelp">
+        1. Enter any product name you want to search\n
+        2. Click on search\n
+        3. The place and price of the product will be shown if available
+    </string>
+    <string name="list">List</string>
+    <string name="listHelp">
+        1. Click on the + icon to add items to the List\n
+        2. To remove just click on the - icon
+    </string>
 </resources>
